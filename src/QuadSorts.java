@@ -54,7 +54,7 @@ public static class QuadSorts {
         return (mergeSortHelper(a, 0, a.length - 1));
     }
 
-    public static int[] mergeSortHelper(int[] a, int start, int end) { // to keep formatting clean
+    private static int[] mergeSortHelper(int[] a, int start, int end) { // to keep formatting clean
         if (start >= end) return a;
         int c = (start + end) / 2;
         mergeSortHelper(a, c + 1, end);
@@ -63,7 +63,7 @@ public static class QuadSorts {
         return a;
     }
 
-    public static void recursiveMerge(int[] a, int start, int c, int end) {
+    private static void recursiveMerge(int[] a, int start, int c, int end) {
         int l_r = end - c;
         int l_l = c - start + 1;
         int[] right = new int[l_r];
@@ -97,9 +97,38 @@ public static class QuadSorts {
         }
     }
 
+    static int[] randomArr(int n) {
+        int[] a = new int[n];
+        for (int i = 0; i < n; i++) a[i] = (int)(Math.random() * n);
+        return a;
+    }
+
 }
 
 public static void main(String[] args) {
-    int[] inp = {9252, 2521, 2, 7, 14, 25, 215, 15, 25, 2, 52, 2, 5, 252, 56, 35, 63, 63};
-    System.out.println(Arrays.toString(QuadSorts.mergeSort(inp)));
+    int[] testCases = {100, 1000, 10000, 100000, 1000000};
+    for (int n : testCases) {
+        int[] inp = QuadSorts.randomArr(n);
+        double t1 = System.currentTimeMillis();
+        QuadSorts.bubbleSort(inp);
+        System.out.println(String.valueOf(System.currentTimeMillis() - t1) + " miliseconds for BubbleSort with " + n + " test cases.");
+    }
+    for (int n : testCases) {
+        int[] inp = QuadSorts.randomArr(n);
+        double t1 = System.currentTimeMillis();
+        QuadSorts.mergeSort(inp);
+        System.out.println(String.valueOf(System.currentTimeMillis() - t1) + " miliseconds for MergeSort with " + n + " test cases.");
+    }
+    for (int n : testCases) {
+        int[] inp = QuadSorts.randomArr(n);
+        double t1 = System.currentTimeMillis();
+        QuadSorts.insertionSort(inp);
+        System.out.println(String.valueOf(System.currentTimeMillis() - t1) + " miliseconds for Insert Sort with " + n + " test cases.");
+    }
+    for (int n : testCases) {
+        int[] inp = QuadSorts.randomArr(n);
+        double t1 = System.currentTimeMillis();
+        QuadSorts.selectionSort(inp);
+        System.out.println(String.valueOf(System.currentTimeMillis() - t1) + " miliseconds for SelectionSort with " + n + " test cases.");
+    }
 }
